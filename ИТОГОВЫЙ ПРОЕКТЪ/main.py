@@ -10,7 +10,7 @@ bot = telebot.TeleBot(TOKEN)
 user_states = {}
 
 def escape_markdown(text):
-    """Экранирование специальных символов Markdown"""
+    
     if not text:
         return text
     
@@ -22,7 +22,6 @@ def escape_markdown(text):
     return text
 
 def format_country_list(countries):
-    """Форматирование списка стран без Markdown разметки"""
     if not countries:
         return "Нет данных"
     
@@ -49,17 +48,16 @@ def format_country_list(countries):
 
 @bot.message_handler(commands=['start'])
 def start_command(message):
-    # Проверяем базу данных
     if not logic.init_db():
         bot.send_message(
             message.chat.id,
-            "⚠️ База данных не инициализирована!\n"
-            "Для работы бота необходимо заполнить базу данных."
+            "1\n"
+            "2."
         )
         return
     
     welcome_text = (
-        'Привет! 🇪🇺\n'
+        'Привет!\n'
         'Здесь ты можешь узнать всю информацию про страны Европы.\n'
         'Этот бот может быть полезен для домашних заданий или если лень гуглить.\n\n'
         'Доступные команды:\n'
@@ -86,7 +84,6 @@ def help_command(message):
 
 @bot.message_handler(commands=['European_countries'])
 def show_all_countries(message):
-    """Показать все страны"""
     countries = logic.get_all_countries()
     
     if not countries:
@@ -104,7 +101,6 @@ def show_all_countries(message):
 
 @bot.message_handler(commands=['regions'])
 def show_regions(message):
-    """Показать регионы"""
     markup = InlineKeyboardMarkup()
     markup.row_width = 2
     
@@ -170,7 +166,7 @@ def handle_country_command(message):
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
-    """Обработка нажатий на inline-кнопки"""
+  
     chat_id = call.message.chat.id
     
     if call.data.startswith("region_"):
@@ -269,11 +265,11 @@ def callback_query(call):
 
 
 if __name__ == "__main__":
-    print("Проверяю базу данных...")
+    print("1.")
     if logic.init_db():
-        print("База данных подключена успешно!")
-        print("Бот запущен...")
+        print("2")
+        print("3")
         bot.polling(none_stop=True)
     else:
-        print("ОШИБКА: База данных не инициализирована!")
-        print("Запустите сначала: python db.py")
+        print("4")
+
